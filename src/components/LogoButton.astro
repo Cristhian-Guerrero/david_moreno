@@ -1,0 +1,82 @@
+---
+// LogoButton.astro
+---
+
+<a href="/" class="logo-item" id="logoItem"></a>
+
+<script>
+    let inactivityTime = function () {
+        let time: number;
+        const logoItem = document.getElementById("logoItem");
+
+        function resetTimer() {
+            clearTimeout(time);
+            time = setTimeout(activateGif, 3000); // 3 segundos
+        }
+
+        function activateGif() {
+            if (logoItem) {
+                logoItem.classList.add("gif-active");
+                setTimeout(() => {
+                    logoItem.classList.remove("gif-active");
+                }, 15000); // Desactiva el GIF después de 15 segundos
+            }
+        }
+
+        window.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+        document.ontouchstart = resetTimer; // Para dispositivos táctiles
+        document.onclick = resetTimer;
+    };
+
+    inactivityTime();
+</script>
+
+<style>
+    .logo-item {
+        display: block;
+        width: 500px;
+        height: 50px;
+        background-image: url("/images/btn/DAVIDMORENO1.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition:
+            background-image 1s ease,
+            transform 1s ease;
+    }
+
+    .logo-item.gif-active {
+        background-image: url("/images/david-moreno.gif");
+    }
+
+    .logo-item:hover {
+        background-image: url("/images/btn/DAVIDMORENO2.png");
+        transform: scale(1.1);
+    }
+
+    .logo-item:active {
+        background-image: url("/images/btn/DAVIDMORENO3.png");
+        transform: scale(1.2);
+    }
+
+    .logo-item:focus {
+        background-image: url("/images/btn/DAVIDMORENO4.png");
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        .logo-item {
+            width: 300px;
+            height: 40px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo-item {
+            width: 200px;
+            height: 30px;
+        }
+    }
+</style>

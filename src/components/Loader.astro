@@ -1,0 +1,25 @@
+---
+// Loader.astro
+---
+
+<div
+    id="loader"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: url('/images/loading.gif') center no-repeat #000; background-size: contain; z-index: 9999; transition: opacity 1s ease; display: none; opacity: 0;"
+>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const loaderElement = document.getElementById("loader");
+        if (loaderElement !== null) {
+            loaderElement.style.display = "block";
+            loaderElement.style.opacity = "1";
+            setTimeout(() => {
+                loaderElement.style.opacity = "0";
+                setTimeout(() => {
+                    loaderElement.style.display = "none";
+                }, 1000);
+            }, 1500);
+        }
+    });
+</script>

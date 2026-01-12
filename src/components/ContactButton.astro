@@ -1,0 +1,55 @@
+---
+// ContactButton.astro
+---
+
+<a href="/Contact" class="menu-item menu-item-contact1"></a>
+
+<style>
+    .menu-item {
+        display: block;
+        width: 300px;
+        height: 50px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition:
+            background-image 0.5s ease,
+            transform 0.5s ease;
+    }
+
+    .menu-item-contact1 {
+        background-image: url("/images/btn/CONTACT1.png");
+        margin-left: 10px; /* Ajuste para organizar los botones */
+    }
+
+    .menu-item-contact1:hover {
+        background-image: url("/images/btn/CONTACT2.png");
+        transform: scale(1.1);
+    }
+
+    .menu-item-contact1:active {
+        background-image: url("/images/btn/CONTACT3.png");
+        transform: scale(1.2);
+    }
+
+    .menu-item-contact1:focus {
+        background-image: url("/images/btn/CONTACT4.png");
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        .menu-item {
+            width: 240px;
+            height: 40px;
+            margin-left: 0; /* Quitar margen en modo responsive */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .menu-item {
+            width: 150px;
+            height: 30px;
+            margin-left: 0; /* Quitar margen en modo responsive */
+        }
+    }
+</style>

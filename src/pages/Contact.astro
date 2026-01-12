@@ -1,0 +1,175 @@
+---
+// Importa el componente Menu
+import Menu from "../components/Menu.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contacto" showVideoControl={false}>
+    <Menu />
+    <main class="contact-container">
+        <div class="content">
+            <div class="image-section">
+                <img
+                    src="/images/btncontact/mesatrabajo1.png"
+                    class="image"
+                    alt="Mesa de Trabajo 1"
+                />
+                <img
+                    src="/images/btncontact/mesatrabajo2.png"
+                    class="image"
+                    alt="Mesa de Trabajo 2"
+                />
+            </div>
+            <div class="side-section">
+                <img
+                    src="/images/btncontact/firma.png"
+                    class="image-large firma"
+                    alt="Firma"
+                />
+                <img
+                    src="/images/btncontact/ojo.png"
+                    class="image-small"
+                    alt="Ojo"
+                />
+            </div>
+        </div>
+        <div class="social-buttons">
+            <a
+                href="https://instagram.com/david________moreno"
+                target="_blank"
+                class="social-button instagram"
+            >
+                <img src="/images/btncontact/instagram.png" alt="Instagram" />
+            </a>
+            <a
+                href="https://www.behance.com/davidmoreno"
+                target="_blank"
+                class="social-button behance"
+            >
+                <img src="/images/btncontact/behance.png" alt="Behance" />
+            </a>
+            <a
+                href="https://vimeo.com/user40469835"
+                target="_blank"
+                class="social-button vimeo"
+            >
+                <img src="/images/btncontact/vimeo.png" alt="Vimeo" />
+            </a>
+        </div>
+    </main>
+
+    <style>
+        body {
+            background-color: #000; /* Fondo negro */
+            color: #fff; /* Color del texto blanco */
+        }
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding-top: 150px; /* Añadimos más espacio para que las imágenes no se superpongan con el menú */
+        }
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 20px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .image-section,
+        .side-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .side-section {
+            flex-direction: row;
+            align-items: flex-start; /* Alineación de la imagen 'firma' en el centro y 'ojo' a la derecha */
+            gap: 20px;
+        }
+        .image {
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
+        }
+        .image:hover {
+            transform: scale(1.1);
+        }
+        .image-small {
+            width: 100%;
+            max-width: 150px; /* Tamaño adecuado para la imagen pequeña */
+            transition: transform 0.3s ease;
+        }
+        .image-small:hover {
+            transform: scale(1.1);
+        }
+        .image-large {
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s ease;
+        }
+        .image-large:hover {
+            transform: scale(1.1);
+        }
+        .firma:hover {
+            content: url("/images/btncontact/firma2.png");
+        }
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 200px; /* Ancho máximo para los botones de redes sociales */
+        }
+        .social-button {
+            display: block;
+            width: 100%;
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease;
+        }
+        .social-button img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .social-button:hover {
+            transform: scale(1.1);
+            background-color: #555; /* Color de fondo al hacer hover */
+        }
+        .instagram {
+            max-width: 200px;
+        }
+        @media (max-width: 768px) {
+            .contact-container {
+                padding-top: 200px; /* Más espacio en modo responsive para evitar superposición */
+            }
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .side-section {
+                flex-direction: column;
+            }
+            .image {
+                max-width: 80%;
+            }
+            .image-small {
+                max-width: 80%;
+            }
+            .image-large {
+                max-width: 80%;
+            }
+        }
+    </style>
+</Layout>

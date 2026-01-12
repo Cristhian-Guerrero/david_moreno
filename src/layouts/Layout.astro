@@ -1,0 +1,55 @@
+---
+// Importa el componente Menu y el componente VideoControl
+import Menu from "../components/Menu.astro";
+import VideoControl from "../components/VideoControl.astro";
+
+interface Props {
+	title: string;
+	showVideoControl?: boolean; // Propiedad opcional para mostrar el VideoControl
+}
+import { ViewTransitions, slide } from "astro:transitions";
+
+const { title, showVideoControl = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" transition:animate={slide({ duration: "1s" })}>
+	<head>
+		<script src="https://player.vimeo.com/api/player.js"></script>
+
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ViewTransitions />
+	</head>
+	<body>
+		<Menu />
+		{showVideoControl && <VideoControl />}
+		<slot />
+
+		<style is:global>
+			html,
+			body {
+				padding: 0;
+				margin: 0;
+				width: 100%; /* Usa 100% en lugar de 100vw para evitar problemas con scrollbars */
+				height: 100%; /* Asegura que la altura sea la de la ventana del navegador */
+				box-sizing: border-box; /* Asegura que padding y border estén incluidos en el ancho y alto */
+				overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+			}
+
+			/* Restablece cualquier borde predeterminado en todos los elementos */
+			*,
+			*:before,
+			*:after {
+				box-sizing: inherit;
+				border: 0; /* Elimina bordes predeterminados */
+				margin: 0; /* Elimina márgenes predeterminados */
+				padding: 0; /* Elimina paddings predeterminados */
+			}
+		</style>
+	</body>
+</html>

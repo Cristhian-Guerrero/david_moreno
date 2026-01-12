@@ -1,0 +1,106 @@
+---
+// Importa los componentes LogoButton, ContactButton, y LatestWorkButton
+import LogoButton from "./LogoButton.astro";
+import ContactButton from "./ContactButton.astro";
+import LatestWorkButton from "./LatestWorkButton.astro";
+---
+
+<nav class="menu" id="mainMenu">
+    <LogoButton />
+    <div class="menu-buttons">
+        <LatestWorkButton />
+        <ContactButton />
+    </div>
+</nav>
+
+<script>
+    window.addEventListener("scroll", () => {
+        const menu = document.getElementById("mainMenu");
+        if (menu) {
+            if (window.scrollY > 50) {
+                menu.classList.add("scrolled");
+            } else {
+                menu.classList.remove("scrolled");
+            }
+        }
+    });
+</script>
+
+<style>
+    .menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 20px;
+        background: transparent;
+        transition:
+            background-color 0.3s ease,
+            border 0.3s ease;
+        z-index: 1000;
+        border-bottom: 1px solid transparent; /* Borde transparente por defecto */
+    }
+
+    .menu.scrolled {
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Borde visible cuando se desplaza */
+    }
+
+    .menu-buttons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .menu-buttons .menu-item {
+        width: auto;
+        height: auto;
+        transition:
+            width 0.3s ease,
+            height 0.3s ease;
+    }
+
+    .menu-item-contact1,
+    .menu-item-latest1 {
+        margin: 0 10px; /* Ajuste de margen para organizar los botones */
+    }
+
+    @media (max-width: 768px) {
+        .menu {
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            background-color: rgba(
+                0,
+                0,
+                0,
+                0.8
+            ); /* Fondo visible en modo responsive */
+            backdrop-filter: blur(
+                10px
+            ); /* Desenfoque de fondo en modo responsive */
+        }
+
+        .menu-buttons {
+            flex-direction: column;
+            gap: 10px;
+            align-items: center; /* Centra los botones en modo responsive */
+        }
+
+        .menu-buttons .menu-item {
+            width: auto;
+            margin: 10px 0; /* Ajuste de margen para organizar los botones en modo responsive */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .menu-buttons .menu-item {
+            width: auto;
+        }
+    }
+</style>

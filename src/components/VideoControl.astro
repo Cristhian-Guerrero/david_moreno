@@ -1,0 +1,69 @@
+---
+// VideoControl.astro
+
+export const videoList = [
+    {
+        src: "/videos/SEDAL.mp4",
+        title: "RBD SEDAL",
+    },
+    {
+        src: "/videos/ali.mp4",
+        title: "ALI A.K.A. MIND - So Sad",
+    },
+    {
+        src: "/videos/KFC.mp4",
+        title: "KFC - IT'S TIME",
+    },
+    {
+        src: "/videos/OCEANBANK.mp4",
+        title: "OCEAN BANK - We'll take your further",
+    },
+];
+---
+
+<nav class="slider-controls">
+    {
+        videoList.map((video, index) => (
+            <div
+                class="slider-control"
+                data-video={video.src}
+                data-title={video.title}
+                class:list={["slider-control", index === 0 ? "active" : ""]}
+            />
+        ))
+    }
+</nav>
+
+<style>
+    .slider-controls {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: fixed;
+        bottom: 2%;
+        right: 2%;
+        gap: 10px;
+        z-index: 100;
+    }
+
+    .slider-control {
+        width: 20px;
+        height: 20px;
+        border: 2px solid white;
+        border-radius: 50%;
+        transition:
+            transform 0.3s ease,
+            border-color 0.3s ease,
+            border-radius 0.3s ease;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slider-control.active {
+        border-color: red;
+        transform: scale(1.2);
+        border-radius: 0%; /* Cambia a cuadrado cuando está activo */
+    }
+</style>

@@ -1,0 +1,82 @@
+---
+import { videoList } from "./VideoControl.astro";
+let currentShapeIndex = 0;
+const shapes = ["circle", "square", "triangle", "line"];
+
+function getNextShape() {
+    currentShapeIndex = (currentShapeIndex + 1) % shapes.length;
+    return shapes[currentShapeIndex];
+}
+---
+
+<nav class="carousel-controls">
+    {videoList.map(() => <nav class={`control ${getNextShape()}`} />)}
+</nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const controls = document.querySelectorAll(
+            ".carousel-controls .control",
+        );
+        let currentIndex = 0;
+
+        setInterval(() => {
+            controls.forEach((control) => {
+                control.className = `control ${getNextShape()}`;
+            });
+        }, 10000); // Cambia cada 10 segundos
+    });
+
+    function getNextShape() {
+        const shapes = ["circle", "square", "triangle", "line"];
+        let currentShapeIndex = 0;
+
+        return function () {
+            currentShapeIndex = (currentShapeIndex + 1) % shapes.length;
+            return shapes[currentShapeIndex];
+        };
+    }
+</script>
+
+<style>
+    .carousel-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 20px;
+        z-index: 100;
+    }
+
+    .control {
+        width: 20px;
+        height: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .control.circle {
+        border-radius: 50%;
+        background-color: #fff;
+    }
+
+    .control.square {
+        background-color: #fff;
+    }
+
+    .control.triangle {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 20px solid #fff;
+    }
+
+    .control.line {
+        width: 40px;
+        height: 4px;
+        background-color: #fff;
+    }
+</style>

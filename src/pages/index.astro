@@ -1,0 +1,231 @@
+---
+// Importa los componentes necesarios
+import Layout from "../layouts/Layout.astro";
+import Loader from "../components/Loader.astro";
+import Menu from "../components/Menu.astro";
+import VideoControl, { videoList } from "../components/VideoControl.astro";
+---
+
+<Layout title="| David Moreno |">
+	<Loader />
+	<Menu />
+	<main>
+		{
+			videoList.length > 0 ? (
+				<div class="video-container">
+					<video id="carousel-video" autoplay loop muted playsinline>
+						<source src={videoList[0].src} type="video/mp4" />
+						Tu navegador no soporta videos HTML5.
+					</video>
+					<div id="video-title" class="video-title">
+						{videoList[0].title}
+					</div>
+				</div>
+			) : (
+				<div class="no-videos">No hay videos disponibles.</div>
+			)
+		}
+	</main>
+	<VideoControl />
+</Layout>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const videoElement = document.getElementById(
+			"carousel-video",
+		) as HTMLVideoElement;
+		const titleElement = document.getElementById(
+			"video-title",
+		) as HTMLElement;
+
+		const hideTitle = () => {
+			if (titleElement) {
+				titleElement.style.opacity = "0";
+			}
+		};
+
+		const showTitle = (title: string) => {
+			if (titleElement) {
+				titleElement.textContent = title ?? "";
+				titleElement.style.opacity = "1";
+				setTimeout(hideTitle, 5000); // Ocultar el título después de 5 segundos
+			}
+		};
+
+		const controls = Array.from(
+			document.querySelectorAll(".slider-control"),
+		) as HTMLElement[];
+		const videoSources = controls.map((control) => ({
+			src: control.getAttribute("data-video") as string,
+			title: control.getAttribute("data-title") as string,
+		}));
+
+		let currentIndex = 0;
+
+		const changeVideo = ({
+			src,
+			title,
+		}: {
+			src: string;
+			title: string;
+		}) => {
+			if (videoElement instanceof HTMLVideoElement) {
+				videoElement.pause();
+				videoElement.src = src;
+				videoElement.load();
+				videoElement.play();
+				showTitle(title);
+			}
+		};
+
+		const changeDots = () => {
+			controls.forEach((control, index) => {
+				control.style.borderRadius = `${Math.random() * 50}%`; // Cambia la forma de los puntos
+				control.style.transform = `scale(${Math.random() * 0.5 + 1})`; // Cambia el tamaño de los puntos
+				control.style.borderColor =
+					index === currentIndex ? "red" : "white";
+			});
+		};
+
+		controls.forEach((control, index) => {
+			control.addEventListener("click", (e) => {
+				e.preventDefault();
+				controls.forEach((ctrl) => ctrl.classList.remove("active"));
+				control.classList.add("active");
+				currentIndex = index;
+				changeVideo(videoSources[index]);
+				changeDots();
+			});
+		});
+
+		setInterval(() => {
+			currentIndex = (currentIndex + 1) % videoSources.length;
+			controls.forEach((ctrl) => ctrl.classList.remove("active"));
+			controls[currentIndex].classList.add("active");
+			changeVideo(videoSources[currentIndex]);
+			changeDots();
+		}, 10000); // Cambia de video cada 10 segundos
+
+		// Lazy loading videos
+		const lazyLoadVideo = () => {
+			if ("IntersectionObserver" in window) {
+				let videoObserver = new IntersectionObserver(
+					(entries, observer) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								const video = entry.target as HTMLVideoElement;
+								video.setAttribute(
+									"src",
+									video.getAttribute("data-src")!,
+								);
+								video.load();
+								observer.unobserve(video);
+							}
+						});
+					},
+				);
+
+				const videoElements = document.querySelectorAll("video");
+				videoElements.forEach((video) => {
+					videoObserver.observe(video);
+				});
+			}
+		};
+
+		lazyLoadVideo();
+	});
+</script>
+
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		background: #0f0f0f;
+		font-family: Helvetica, Arial, sans-serif;
+	}
+	main {
+		position: relative;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1;
+	}
+	.video-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: hidden;
+		z-index: -1;
+	}
+	.video-container video {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		min-width: 100vw;
+		min-height: 100vh;
+		width: auto;
+		height: auto;
+	}
+	.video-title {
+		position: fixed;
+		top: 50%;
+		right: 2%;
+		color: #fff;
+		font-size: 1.5vw;
+		z-index: 2;
+		pointer-events: none;
+		text-align: right;
+		opacity: 0;
+		transition: opacity 1s ease;
+	}
+	#loader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: url("/images/loading.gif") center center / contain no-repeat
+			rgb(0, 0, 0);
+		z-index: 9999;
+		transition: opacity 1s ease;
+		display: none;
+		opacity: 0;
+	}
+	.no-videos {
+		color: white;
+		font-size: 1.5vw;
+	}
+
+	@media (max-width: 768px) {
+		.video-container video {
+			position: fixed;
+			top: 0;
+			left: 0;
+			transform: none;
+			width: 100vw;
+			height: 100vh;
+		}
+		.video-title {
+			font-size: 3vw;
+			bottom: auto;
+			right: auto;
+			top: 90%; /* Posición cerca del fondo */
+			left: 50%;
+			transform: translateX(-50%);
+			margin-top: 10px;
+		}
+		.menu {
+			background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+		}
+	}
+
+	@media (max-width: 480px) {
+		.video-title {
+			font-size: 4vw;
+		}
+	}
+</style>
