@@ -1,6 +1,8 @@
 ---
-// Importa el componente Menu
 import Menu from "../components/Menu.astro";
+import videos from "../data/videos.json";
+
+const videosOrdenados = videos.sort((a, b) => a.pos - b.pos);
 ---
 
 <html lang="es">
@@ -11,126 +13,24 @@ import Menu from "../components/Menu.astro";
         <Menu />
         <div class="wrapper">
             <div class="grid-container">
-                <!-- 1 -->
-                <div class="project" data-url="https://vimeo.com/884034530">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/884034530?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">IT&rsquo;S TIME - KFC</div>
-                </div>
-
-                <!-- 2 -->
-                <div class="project" data-url="https://vimeo.com/905271827">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/905271827?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">NOT NORMAL - RBD x SEDAL</div>
-                </div>
-
-                <!-- 3 -->
-                <div class="project" data-url="https://vimeo.com/918107443">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/918107443?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">
-                        OCEAN BANK x DAVID MORENO / We&rsquo;ll take your
-                        further
-                    </div>
-                </div>
-
-                <!-- 4 -->
-                <div class="project" data-url="https://vimeo.com/905791357">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/905791357?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">ALI A.K.A. MIND - So Sad</div>
-                </div>
-
-                <!-- 5 -->
-                <div class="project" data-url="https://vimeo.com/1002288511">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/1002288511?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">
-                        FASHION FILM x Lina Tejeiro x David Moreno
-                    </div>
-                </div>
-
-                <!-- 6 -->
-                <div class="project" data-url="https://vimeo.com/918149456">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/918149456?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">
-                        OCEAN BANK / HOLLIDAY x DAVID MORENO
-                    </div>
-                </div>
-
-                <!-- 7 -->
-                <div class="project" data-url="https://vimeo.com/715610516">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/715610516?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">
-                        ROCKAFELLA - ESHCONINCO FT DAINY
-                    </div>
-                </div>
-
-                <!-- 8 -->
-                <div class="project" data-url="https://vimeo.com/504179176">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/504179176?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">
-                        SURFER GORILLA - MANGLE MAMB&Uacute;
-                    </div>
-                </div>
-
-                <!-- 9 -->
-                <div class="project" data-url="https://vimeo.com/993651088">
-                    <div class="clickable-overlay"></div>
-                    <iframe
-                        class="vimeoVideo"
-                        src="https://player.vimeo.com/video/993651088?autoplay=0&loop=1&muted=1&background=1#t=20s"
-                        style="width: 100%; height: 100%; border: none; pointer-events: none;"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="videoTitle">
-                        La Ansiedad y Yo - Ali AKA Mind
-                    </div>
-                </div>
+                {
+                    videosOrdenados.map((video) => (
+                        <div
+                            class="project"
+                            data-url={`https://vimeo.com/${video.id}`}
+                        >
+                            <div class="clickable-overlay" />
+                            <iframe
+                                class="vimeoVideo"
+                                src={`https://player.vimeo.com/video/${video.id}?autoplay=0&loop=1&muted=1&background=1#t=20s`}
+                                style="width: 100%; height: 100%; border: none; pointer-events: none;"
+                                allow="autoplay; fullscreen; picture-in-picture"
+                                allowfullscreen
+                            />
+                            <div class="videoTitle">{video.titulo}</div>
+                        </div>
+                    ))
+                }
             </div>
         </div>
 
@@ -329,7 +229,6 @@ import Menu from "../components/Menu.astro";
                     flex-direction: column;
                     align-items: center;
                 }
-
                 .project {
                     width: 90%;
                     height: 250px;
