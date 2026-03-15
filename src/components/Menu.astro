@@ -1,13 +1,14 @@
 ---
-// Importa los componentes LogoButton, ContactButton, y LatestWorkButton
 import LogoButton from "./LogoButton.astro";
 import ContactButton from "./ContactButton.astro";
 import LatestWorkButton from "./LatestWorkButton.astro";
+import AIDirectionButton from "./AIDirectionButton.astro";
 ---
 
 <nav class="menu" id="mainMenu">
     <LogoButton />
     <div class="menu-buttons">
+        <AIDirectionButton />
         <LatestWorkButton />
         <ContactButton />
     </div>
@@ -41,14 +42,14 @@ import LatestWorkButton from "./LatestWorkButton.astro";
             background-color 0.3s ease,
             border 0.3s ease;
         z-index: 1000;
-        border-bottom: 1px solid transparent; /* Borde transparente por defecto */
+        border-bottom: 1px solid transparent;
     }
 
     .menu.scrolled {
         background-color: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(10px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Borde visible cuando se desplaza */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     }
 
     .menu-buttons {
@@ -66,8 +67,9 @@ import LatestWorkButton from "./LatestWorkButton.astro";
     }
 
     .menu-item-contact1,
-    .menu-item-latest1 {
-        margin: 0 10px; /* Ajuste de margen para organizar los botones */
+    .menu-item-latest1,
+    .menu-item-ai1 {
+        margin: 0 10px;
     }
 
     @media (max-width: 768px) {
@@ -75,26 +77,19 @@ import LatestWorkButton from "./LatestWorkButton.astro";
             flex-direction: column;
             align-items: center;
             padding: 10px;
-            background-color: rgba(
-                0,
-                0,
-                0,
-                0.8
-            ); /* Fondo visible en modo responsive */
-            backdrop-filter: blur(
-                10px
-            ); /* Desenfoque de fondo en modo responsive */
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
         }
 
         .menu-buttons {
             flex-direction: column;
             gap: 10px;
-            align-items: center; /* Centra los botones en modo responsive */
+            align-items: center;
         }
 
         .menu-buttons .menu-item {
             width: auto;
-            margin: 10px 0; /* Ajuste de margen para organizar los botones en modo responsive */
+            margin: 10px 0;
         }
     }
 

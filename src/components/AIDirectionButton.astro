@@ -1,0 +1,58 @@
+---
+
+---
+
+<a
+    href="https://davidmod321.myportfolio.com/"
+    target="_blank"
+    class="menu-item menu-item-ai1"></a>
+
+<style>
+    .menu-item {
+        display: block;
+        width: 300px;
+        height: 50px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition:
+            background-image 0.7s ease,
+            transform 0.7s ease;
+    }
+
+    .menu-item-ai1 {
+        background-image: url("/images/btn/AIDIRECTION1.png");
+        margin-left: 10px;
+    }
+
+    .menu-item-ai1:hover {
+        background-image: url("/images/btn/AIDIRECTION2.png");
+        transform: scale(1.1);
+    }
+
+    .menu-item-ai1:active {
+        background-image: url("/images/btn/AIDIRECTION3.png");
+        transform: scale(1.2);
+    }
+
+    .menu-item-ai1:focus {
+        background-image: url("/images/btn/AIDIRECTION3.png");
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        .menu-item {
+            width: 250px;
+            height: 40px;
+            margin-left: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .menu-item {
+            width: 150px;
+            height: 30px;
+            margin-left: 0;
+        }
+    }
+</style>
