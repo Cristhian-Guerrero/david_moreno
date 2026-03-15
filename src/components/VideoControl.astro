@@ -1,6 +1,4 @@
 ---
-// VideoControl.astro
-
 export const videoList = [
     {
         src: "/videos/SEDAL.mp4",
@@ -12,7 +10,7 @@ export const videoList = [
     },
     {
         src: "/videos/KFC.mp4",
-        title: "KFC - IT'S TIME",
+        title: "KFC - IT'S NICE",
     },
     {
         src: "/videos/OCEANBANK.mp4",
@@ -25,10 +23,9 @@ export const videoList = [
     {
         videoList.map((video, index) => (
             <div
-                class="slider-control"
+                class:list={["slider-control", index === 0 ? "active" : ""]}
                 data-video={video.src}
                 data-title={video.title}
-                class:list={["slider-control", index === 0 ? "active" : ""]}
             />
         ))
     }
@@ -42,28 +39,27 @@ export const videoList = [
         position: fixed;
         bottom: 2%;
         right: 2%;
-        gap: 10px;
+        gap: 12px;
         z-index: 100;
     }
 
     .slider-control {
-        width: 20px;
-        height: 20px;
-        border: 2px solid white;
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.4);
         border-radius: 50%;
-        transition:
-            transform 0.3s ease,
-            border-color 0.3s ease,
-            border-radius 0.3s ease;
+        transition: all 0.4s ease;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .slider-control:hover {
+        background-color: rgba(255, 255, 255, 0.8);
+        transform: scale(1.2);
     }
 
     .slider-control.active {
-        border-color: red;
-        transform: scale(1.2);
-        border-radius: 0%; /* Cambia a cuadrado cuando está activo */
+        background-color: rgba(255, 255, 255, 1);
+        transform: scale(1.4);
     }
 </style>

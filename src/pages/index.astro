@@ -1,5 +1,4 @@
 ---
-// Importa los componentes necesarios
 import Layout from "../layouts/Layout.astro";
 import Loader from "../components/Loader.astro";
 import Menu from "../components/Menu.astro";
@@ -78,24 +77,13 @@ import VideoControl, { videoList } from "../components/VideoControl.astro";
         }) => {
             if (videoElement instanceof HTMLVideoElement) {
                 videoElement.pause();
-                // Limpiamos el src actual para liberar ancho de banda antes de cargar el siguiente
                 videoElement.removeAttribute("src");
                 videoElement.load();
-
                 videoElement.src = src;
                 videoElement.load();
                 videoElement.play();
                 showTitle(title);
             }
-        };
-
-        const changeDots = () => {
-            controls.forEach((control, index) => {
-                control.style.borderRadius = `${Math.random() * 50}%`;
-                control.style.transform = `scale(${Math.random() * 0.5 + 1})`;
-                control.style.borderColor =
-                    index === currentIndex ? "red" : "white";
-            });
         };
 
         controls.forEach((control, index) => {
@@ -105,7 +93,6 @@ import VideoControl, { videoList } from "../components/VideoControl.astro";
                 control.classList.add("active");
                 currentIndex = index;
                 changeVideo(videoSources[index]);
-                changeDots();
             });
         });
 
@@ -115,10 +102,7 @@ import VideoControl, { videoList } from "../components/VideoControl.astro";
             if (controls[currentIndex])
                 controls[currentIndex].classList.add("active");
             changeVideo(videoSources[currentIndex]);
-            changeDots();
         }, 10000);
-
-        // Se eliminó la función lazyLoadVideo por ser redundante en videos fixed
     });
 </script>
 
